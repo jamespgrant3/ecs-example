@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  EcrRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: "my-ecs-repository"
+      RepositoryPolicyText:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Sid: AllowPushPull
+            Effect: Allow
+            Principal: 
+              AWS:
+                - "arn:aws:iam::744975058869:user/jamespgrant3"
+            Action:
+              - "ecr:GetDownloadUrlForLayer"
+              - "ecr:BatchGetImage"
+              - "ecr:BatchCheckLayerAvailability"
+              - "ecr:PutImage"
+              - "ecr:InitiateLayerUpload"
+              - "ecr:UploadLayerPart"
+              - "ecr:CompleteLayerUpload"
+      Tags:
+        -
+          Key: purpose
+          Value: ecs
